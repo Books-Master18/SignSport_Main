@@ -1,0 +1,6 @@
+# requirements.txt
+Flask==2.3.3
+requests>=2.32.2
+pymorphy3==2.0.2
+python-dotenv==1.0.0
+flask-limiter==3.5.0

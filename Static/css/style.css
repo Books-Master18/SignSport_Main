@@ -1,0 +1,1808 @@
+/* === ОБЩИЕ СТИЛИ === */
+
+/* тело сайта. Цвет фона и шрифт для всего сайта*/
+body {
+    background-color: #fffdef;
+    font-family: "Montserrat", sans-serif;
+}
+
+/* -------------------------------------------------- */
+
+/* редактирование размера логотипа на баннере */
+.header img{
+    height: 100%;
+    width: 200px;
+}
+
+
+/*создание баннера - цвет, размер текста позиции, тень*/
+.header{
+    background-color: #4682A9;
+    color: #fffdef;              
+    height: 85px;
+    width: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1000;
+    box-shadow: 0px 5px 10px 0px rgba(0, 0, 0, 0.5)
+}
+
+/* -------------------------------------------------- */
+
+/*пространство для текста на баннере*/
+
+.navigation{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+/* -------------------------------------------------- */
+
+
+/*оформление текста на баннере*/
+
+.textnav
+{
+    display: flex;
+    list-style-type: none;
+    padding-left: 0;
+    font-size: 22px; 
+    font-weight: 500;
+}
+
+.textnav>li{
+    padding-left: 20px;
+    margin-left: 20px;
+    position: relative;
+}
+
+.textnav>li:first-child::before{
+    display: none;
+}
+
+.textnav>li>a{
+    text-decoration: none;
+    color: #FFFBDE;
+    text-align: right;
+    margin-right: 25px;
+}
+
+/* -------------------------------------------------- */
+
+/* === СТИЛИ ДЛЯ ГЛАВНОЙ СТРАНИЦЫ === */
+
+/* Распределение текста и картинки на сайте */
+.mainpage{
+    padding-top: 200px;
+    padding-bottom: 100px;
+}
+
+.mainpage img{
+    height: 347px;
+    width: 347px;
+}
+
+/* -------------------------------------------------- */
+
+/* Заголовок на главной и странице анализа */
+
+.maintext{
+    color: #749BC2;
+    font-size: 60px;
+    text-align: center
+}
+
+/* -------------------------------------------------- */
+
+/* Подзаголовок на главной странице */
+
+.subtitle{
+    color: #496F94;
+    font-size: 22px;
+    max-width: 1100px;      
+    margin: 0 auto;         
+    padding-left: 20px;    
+    padding-right: 20px;
+    text-align: center;
+}
+
+
+/* -------------------------------------------------- */
+
+/*фото капибары рядом с рамкой*/
+
+.tennis {
+    width: 347px;
+    height: 347px;
+    margin-top: -10px; 
+    margin-left: 80px;
+    display: block;
+}
+
+/*текст в рамке прямоугольной с оруглыми углами*/
+
+.text {
+    background: #4682A9;
+    color: #FFFBDE;
+    padding: 18px 26px;        /* отступы внутри рамки */
+    border-radius: 62px;
+    font-size: 28px;
+    text-align: center;
+    /* Центрирование по горизонтали */
+    display: block;
+    max-width: 1250px;
+    margin: -25px auto 0;    
+    box-shadow: 0px 5px 10px 0px rgba(0, 0, 0, 0.5)
+}
+
+/* -------------------------------------------------- */
+
+/*нзвание списка*/
+.name{
+    color: #406890;
+    font-size: 46px;
+    font-weight: 700;
+    padding: 0; 
+    margin-top: 100px;
+    margin-left: 70px;
+}
+
+/*капибара рядом со списком*/
+
+.athletic {
+    width: 347px;
+    height: 347px;
+    display: block;
+    margin-left: auto;     /* отталкивает от левого края */
+    margin-right: 30px;       /* прижимает к правому */
+    /* margin-top по желанию, например: */
+    margin-top: -180px;
+}
+
+/* Список этапов */
+
+.spisok{
+    color: #30465A;
+    font-size: 30px;
+}
+
+/* Элементы списка этапов (оформление блоков) */
+
+.textspisok {
+   background: linear-gradient(to bottom right,#AAD4E6, #4682A9);
+    padding: 30px 15px;
+    border-radius: 35px;
+    text-align: left;
+    display: block;
+    max-width: 900px;
+    margin: 18px 0 0 150px;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.5);
+    /* Плавная анимация для transform, background и тени */
+  transition: 
+    transform 0.3s ease,
+    background-color 0.3s ease,
+    box-shadow 0.3s ease;
+}
+
+.textspisok:hover {
+  background-color: #4682A9;
+  transform: translateY(-3px);
+}
+/* -------------------------------------------------- */
+
+/* Блок с надписью "Загрузите отчёт..." */
+
+.AI {
+  display: flex;
+  align-items: flex-start;
+  padding: 120px 0; /* чуть уменьшили отступы */
+  gap: 30px; /* расстояние между картинкой и текстом */
+}
+
+.AI img {
+  width: 370px;
+  height: 450px;
+  margin-left: 50px;
+  margin-top: 80px;
+}
+
+.AI-text {
+  margin: 90px 50px 0 auto; /* правый отступ 50px, левый — auto → прижато вправо */
+  text-align: center;
+  font-size: 40px;
+  color: #30465A;
+  max-width: 1000px; /* чтобы текст не растягивался на всю ширину */
+}
+
+
+/* Стрелка перед кнопкой */
+.arrow-container {
+    margin: 30px 0 50px 0;
+}
+
+.scroll-hint-arrow {
+    display: block;
+  height: 150px;
+  width: 170px;
+  margin-left: auto;
+  margin-right: 450px;
+  margin-top: -430px;
+    animation: bounce 2s infinite ease-in-out;
+}
+
+/* Стрелка перед кнопкой (анимация) */
+@keyframes bounce {
+    0%, 100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(12px); /* На сколько пикселей опускается */
+    }
+}
+
+/* Стили кнопки "Проанализировать сейчас" */
+
+.butten-link {
+  text-decoration: none; /* убираем подчёркивание ссылки */
+  display: block;
+  text-align: center;
+}
+
+.butten {
+  background: #4682A9;
+  color: #FFFBDE;
+  padding: 20px;
+  border-radius: 15px;
+  font-size: 30px;
+  font-weight: 600;
+  margin: -20px 290px 0 auto;
+  max-width: 500px;
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.5);
+  transition: 
+    transform 0.3s ease,
+    background-color 0.3s ease,
+    box-shadow 0.3s ease;
+}
+
+.butten:hover {
+  background-color: #4682A9;
+  transform: translateY(-3px);
+}
+
+/* -------------------------------------------------- */
+
+/* === СТИЛИЗАЦИЯ ПОДСКАЗКИ "О НАС" === */
+
+/* Стили для ссылки с подсказкой */
+.custom-tooltip {
+  position: relative;
+  text-decoration: none;
+  color: #FFFBDE;
+}
+
+.custom-tooltip b {
+  text-decoration: none;
+}
+
+/* Всплывающая подсказка*/
+.custom-tooltip .tooltip-text {
+  visibility: hidden;
+  opacity: 0;
+  position: fixed; 
+  top: 102px;
+  left: 50%;
+  transform: translateX(-10%);
+  background-color: #fffdef;
+  color: #30465A;
+  padding: 20px 30px;
+  border-radius: 16px;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.5);
+  font-size: 21px;
+  line-height: 1.6;
+  width: 80%; /* фиксированная ширина относительно окна */
+  max-width: 750px;
+  text-align: center;
+  z-index: 1000;
+  white-space: normal;
+  word-wrap: break-word;
+  transition: opacity 0.25s ease, visibility 0.25s ease;
+}
+
+/* Показываем при наведении */
+.custom-tooltip:hover .tooltip-text {
+  visibility: visible;
+  opacity: 1;
+}
+
+/* -------------------------------------------------- */
+
+/* === ФУТЕР === */
+
+footer {
+    color: #30465A;
+    font-size: 18px;
+    padding: 50px 0;
+    text-align: center;
+    font-weight: 500;
+}
+
+/* -------------------------------------------------- */
+
+
+/* === СТИЛИ ДЛЯ СТРАНИЦЫ АНАЛИЗА === */
+
+.page{
+    padding-top: 65px;
+    padding-bottom: 40px;
+}
+
+/* Подзаголовок на странице анализа */
+
+.subtitle_two{
+    color: #496F94;
+    font-size: 24px;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding-left: 20px;
+    padding-right: 20px;
+    text-align: center;
+}
+
+/* -------------------------------------------------- */
+
+/* Основной контейнер загрузки */
+#upload-container {
+  margin: 10px auto;
+  max-width: 1000px;
+}
+
+/* Поле ввода и кнопка анализа */
+.upload-box {
+    padding: 32px;
+    text-align: center;
+}
+
+.upload-icon {
+    max-width: 100px;
+    margin-bottom: 16px;
+}
+
+#reportInput {
+    width: 75%;
+    height: 170px;
+    padding: 12px;
+    margin: 16px 0;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    font-family: inherit;
+    font-size: 18px;
+    resize: none;
+}
+
+.analyze-button {
+    background: #4682A9;
+    color: white;
+    border: none;
+    padding: 12px 32px;
+    font-size: 18px;        
+    font-weight: 600;             
+    border-radius: 12px; 
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 6px rgba(70, 130, 169, 0.25);
+    margin-top: 20px;
+}
+
+.analyze-button:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 12px rgba(70, 130, 169, 0.35);
+    background: #3a6d8c;
+}
+
+/* Блок результата */
+#result {
+    margin: 60px auto;
+    font-size: 20px;
+    color: #FFFBDE;
+    max-width: 800px;
+    padding: 12px 32px;
+    background: #4682A9;
+    border-radius: 10px;
+    display: none;
+}
+
+/* -------------------------------------------------- */
+
+/* === ПРИМЕРЫ ХАРАКТЕРА (КАРУСЕЛЬ) === */
+
+.page2{
+    padding-bottom: -39px;
+}
+
+.textexample{
+    margin-top: 50px;
+    color: #496F94;
+    font-size: 40px;
+    font-weight: 700;
+    margin-left: 100px;
+    text-align: left
+}
+
+/* -------------------------------------------------- */
+
+/* ------ Контейнер всей карусели ---- */
+.carousel-container {
+  display: flex;
+  align-items: center; 
+  justify-content: center;
+  gap: 15px;
+  margin: 30px auto;
+  width: 100%;
+  max-width: 1000px;
+  padding: 0 15px;
+  position: relative;
+}
+
+/* Стили для меток пола и возраста */
+.demo-labels {
+  position: absolute;
+  top: 15px;
+  left: 20px;
+  right: 20px;
+  display: flex;
+  justify-content: space-between;
+  font-weight: bold;
+  font-size: 16px;
+  color: #496F94;
+  background: rgba(255, 255, 255, 0.85);
+  padding: 6px 12px;
+  border-radius: 8px;
+  z-index: 10;
+}
+
+/* ------ счетчик ---- */
+
+.carousel-counter {
+  margin: 20px auto;
+  font-size: 16px;
+  color: #4682A9;
+  font-weight: 600;
+  text-align: center;
+  transition: opacity 0.2s;
+  min-width: 40px; /* чтобы цифры не "прыгали" */
+}
+
+/* ----- Сам блок карусели ----- */
+.carousel {
+  width: 100%;
+  max-width: 900px;
+  min-width: 50px;
+  height: 350px;
+  position: relative;
+  overflow: hidden;
+  border: 1px solid #ccc;
+  border-radius: 40px;
+  padding: 25px;
+  box-sizing: border-box;
+  background: white;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
+}
+
+/* ---- Каждый текст ---- */
+.review {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start; /* текст начинается сверху */
+  align-items: center;
+  font-size: 18px;
+  line-height: 1.6;
+  text-align: center;
+  padding: 60px 20px 20px;
+  box-sizing: border-box;
+  /* Добавим прокрутку, если вдруг не влезет */
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+
+  /* РАЗРЕШИТЬ ВЫДЕЛЕНИЕ ТЕКСТА */
+  user-select: text;        /* для всех браузеров */
+  -webkit-user-select: text; /* для Safari */
+  pointer-events: none;
+}
+
+.review p {
+  margin: 0;
+  padding: 0;
+  font-size: inherit;
+  line-height: inherit;
+  text-align: inherit;
+}
+
+.review.active {
+  opacity: 1;
+  pointer-events: auto; 
+}
+
+.left-arrow {
+  margin-right: 10px;
+  margin-top: -10px;
+  font-size: 20px;
+  width: 60px;
+  height: 40px;
+  border-radius: 100%;
+  margin-left: 10px;
+  margin-top: -10px;
+  font-size: 20px;
+  width: 60px;
+  height: 40px;
+  border-radius: 100%;
+  background: #f0f0f0;
+  border: none;
+  width: 48px;
+  height: 48px;
+  cursor: pointer;
+  border-radius: 50%; 
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.2s;
+  color: #444;
+  flex-shrink: 0;
+}
+
+.left-arrow:hover {
+  background: #d8d8d8;
+}
+
+.right-arrow{
+  margin-right: 10px;
+  margin-top: -10px;
+  font-size: 20px;
+  width: 60px;
+  height: 40px;
+  border-radius: 100%;
+  margin-left: 10px;
+  margin-top: -10px;
+  font-size: 20px;
+  width: 60px;
+  height: 40px;
+  border-radius: 100%;
+  background: #f0f0f0;
+  border: none;
+  width: 48px;
+  height: 48px;
+  cursor: pointer;
+  border-radius: 50%; 
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.2s;
+  color: #444;
+  flex-shrink: 0;
+
+}
+
+.right-arrow:hover {
+  background: #d8d8d8;
+}
+
+/*----------------------------------------*/
+
+/* ===== СТИЛИ ДЛЯ РЕЗУЛЬТАТА АНАЛИЗА ===== */
+
+.result-header strong {
+    font-size: 20px;
+    color: white;
+    margin-left: 10px;
+}
+
+.result-header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 28px;
+    padding-bottom: 15px;
+    border-bottom: 5px solid white;
+}
+
+.result-container h3 {
+    color: white;
+    font-size: 22px;
+    font-weight: 600;
+    margin-left: 7px;
+}
+
+.checkmark {
+    font-size: 24px;
+    color: #496F94;
+}
+
+.sport-name {
+    font-size: 38px;
+    font-weight: 680;
+    color: white;
+    margin-top: 12px;
+    margin-bottom: 10px;
+    text-align: center;
+}
+
+.confidence {
+    font-size: 25px;
+    color: white;
+    margin-bottom: 50px;
+    text-align: center;
+    font-weight: 500;
+}
+
+/* Альтернативные рекомендации */
+.alternative-recommendations h4 {
+    color: white;
+    margin: 20px 0 15px 0;
+    font-size: 24px;
+}
+
+.alternatives-list {
+    display: grid;
+    gap: 12px;
+}
+
+.alternative-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 15px;
+    background: #f8f9fa;
+    border-radius: 8px;
+    border-left: 3px solid #30465A;
+    transition: all 0.3s ease;
+}
+
+.alternative-item:hover {
+    background: #e9ecef;
+    transform: translateX(5px);
+    border-left-color: #496F94;
+}
+
+.alt-sport {
+    font-weight: 500;
+    color: #333;
+    font-size: 22px;
+}
+
+.alt-confidence {
+    background: #496F94;
+    color: white;
+    padding: 4px 12px;
+    border-radius: 15px;
+    font-size: 13px;
+    font-weight: 600;
+}
+
+/* Сообщения об ошибках */
+.error-message {
+    background: #f8d7da;
+    border-left: 4px solid #c0392b;
+    padding: 15px;
+    border-radius: 8px;
+    margin-top: 15px;
+}
+
+.error-message p {
+    margin: 0;
+    color: #721c24;
+}
+
+/* ------------------------------------------------- */
+
+/* текст перед фильтром */
+.textageandgender {
+  text-align: center;
+  margin: 10px 0 15px 0;
+}
+
+.textageandgender p {
+  font-size: 24px;
+  font-weight: bold;
+  color: #4682A9; /* или любой цвет из твоей палитры */
+  margin: 0; /* убирает стандартный отступ у <p> */
+}
+
+/* ------------------------------------------------- */
+
+/* Центрирование фильтров */
+.filters-center {
+  display: flex;
+  justify-content: center;
+  gap: 20px; /* расстояние между полями */
+  margin: 25px 0; /* отступ сверху и снизу */
+}
+
+/* Стиль для полей */
+.filters-center input,
+.filters-center select {
+  padding: 8px 12px;
+  border: 1px solid #30465A;
+  border-radius: 10px;
+  font-family: "Montserrat", sans-serif;
+  font-size: 16px;
+  background: white;
+}
+
+/* ------------------------------------------------- */
+
+/* Индикатор прогресса проекта */
+.project-progress {
+  background: #fffdef;
+  padding: 30px;
+  border-radius: 12px;
+  margin: 30px auto;
+  max-width: 600px;
+  text-align: center;
+}
+
+
+.project-progress p {
+  margin: 12px 10 10;
+  color: #1a365d;
+  font-size: 40px;
+  font-weight: 400;
+}
+
+
+.progress-container {
+  width: 100%;
+  height: 20px;
+  background: #ffffff;
+  border-radius: 10px;
+  overflow: hidden;
+  margin: 20px 0;
+  border: 1px solid #e0e0e0;
+}
+
+.progress-bar {
+  height: 100%;
+  background: linear-gradient(90deg, #30465A, #3a6d8c);
+  transition: width 0.6s ease;
+  border-radius: 10px;        /* скругление заполненной части */
+}
+
+/* ------------------------------------------------- */
+
+/* Модальное окно */
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 1000;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.6);
+}
+
+.modal-content {
+  background-color: #fffdef;
+  margin: 10% auto;
+  padding: 40px;
+  border-radius: 12px;
+  width: 90%;
+  max-width: 1000px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+  text-align: center;
+}
+
+.modal-content h3 {
+  font-size: 35px;
+  margin-top: 0;
+  color: #30465A;
+}
+
+.modal-buttons {
+  margin-top: 20px;
+}
+
+.modal-buttons button {
+  margin: 0 10px;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: transform 0.2s ease, background-color 0.2s ease;
+}
+
+/* Эффект при наведении — приподнимаем кнопку */
+.modal-buttons button:hover {
+  transform: translateY(-3px);
+}
+
+#acceptBtn {
+  background-color: #4CAF50;
+  color: white;
+}
+
+#acceptBtn:hover {
+  background-color: #45a049; /* чуть темнее оригинала */
+}
+
+
+#declineBtn {
+  background-color: #e74c3c;
+  color: white;
+}
+
+#declineBtn:hover {
+  background-color: #d32f2f; /* чуть темнее оригинала */
+}
+
+/* Стиль для картинки в модальном окне */
+.modal-image {
+  width: 150px;
+  height: auto;
+  margin-bottom: 15px;
+  display: block;
+  filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.1));
+}
+
+
+#reportInput:disabled {
+  background-color: #f0f0f0;
+  cursor: not-allowed;
+}
+
+/* ------------------------------------------------- */
+/* Контейнер примера копирование*/
+.example-card {
+  position: relative;
+  padding: 16px;
+}
+
+/* Кнопка копирования */
+.copy-code-btn {
+  position: absolute;
+  top: -30px;
+  left: 50%;
+  transform: translateX(-50%);
+  /* Стили кнопки */
+  background: #e9ecef;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  padding: 0;
+  z-index: 10;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1); /* лёгкая тень для выделения */
+}
+
+.copy-code-btn:hover {
+  background: #dcdfe3;
+}
+
+/* Всплывающая подсказка */
+.copy-code-btn::after {
+  content: "Копировать";
+  position: absolute;
+  bottom: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #333;
+  color: white;
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 12px;
+  white-space: nowrap;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.2s;
+  pointer-events: none;
+  margin-bottom: 6px;
+}
+
+.copy-code-btn:hover::after {
+  opacity: 1;
+  visibility: visible;
+}
+
+.example-card p {
+  margin: 0;
+  padding-right: 40px;
+}
+
+
+/* ------------------------------------------------- */
+
+
+/* Чтобы красиво было*/
+
+/* Мобильные устройства */
+@media (max-width: 768px) {
+    .container {
+        width: 100%;
+        padding: 10px;
+    }
+}
+
+/* Планшеты */
+@media (min-width: 769px) and (max-width: 1024px) {
+    /* Стили для планшетов */
+}
+
+
+
+
+/* =============================================================================
+   === НОВЫЕ СТИЛИ ДЛЯ ЗАГРУЗКИ И РЕЗУЛЬТАТОВ (добавлено в версии 2.1) ===
+   ============================================================================= */
+
+/* === ЗОНА ЗАГРУЗКИ ФОТО === */
+.upload-box {
+    background: white;
+    border-radius: 16px;
+    padding: 30px;
+    margin: 30px auto;
+    max-width: 800px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+.upload-label {
+    display: block;
+    cursor: pointer;
+    padding: 40px 20px;
+    border: 3px dashed #4682A9;
+    border-radius: 12px;
+    background: #f8fafc;
+    transition: all 0.3s ease;
+    font-weight: 500;
+    color: #30465A;
+}
+
+.upload-label.hidden {
+    display: none;
+}
+
+
+.upload-label:hover {
+    border-color: #3a6d8c;
+    background: #f0f7fb;
+    transform: translateY(-2px);
+}
+
+.upload-label:active {
+    transform: translateY(0);
+}
+
+/* Контейнер предпросмотра */
+.image-preview {
+    margin: 25px 0;
+    text-align: center;
+    display: none; /* Скрыт по умолчанию */
+}
+
+.image-preview img {
+    max-width: 100%;
+    max-height: 350px;
+    border-radius: 12px;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+    margin-bottom: 15px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.image-preview.show {
+    display: block; /* Показываем когда есть фото */
+}
+
+
+
+.image-preview button:hover {
+    opacity: 0.9;
+}
+
+/* Кнопка анализа */
+.analyze-button {
+    background: linear-gradient(135deg, #4682A9 0%, #3a6d8c 100%);
+    color: white;
+    border: none;
+    padding: 16px 40px;
+    font-size: 18px;
+    font-weight: 600;
+    border-radius: 50px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(70, 130, 169, 0.3);
+    margin: 20px 0;
+}
+
+.analyze-button:hover:not(:disabled) {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 25px rgba(70, 130, 169, 0.4);
+    background: linear-gradient(135deg, #3a6d8c 0%, #2e5a73 100%);
+}
+
+.analyze-button:disabled {
+    background: #cbd5e1;
+    cursor: not-allowed;
+    transform: none;
+    box-shadow: none;
+}
+
+.hint {
+    font-size: 14px;
+    color: #6c757d;
+    margin-top: 15px;
+    font-style: italic;
+}
+
+/* === ПРИМЕРЫ ТЕКСТА (КАРТОЧКИ) === */
+.samples-title {
+    color: #496F94;
+    font-size: 28px;
+    font-weight: 700;
+    text-align: center;
+    margin: 40px 0 20px;
+}
+
+.samples-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 20px;
+    margin: 30px auto;
+    max-width: 1000px;
+    padding: 0 20px;
+}
+
+.sample-card {
+    background: white;
+    border: 2px solid #e2e8f0;
+    border-radius: 16px;
+    padding: 20px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    position: relative;
+    text-align: left;
+}
+
+.sample-card:hover,
+.sample-card.selected {
+    border-color: #4682A9;
+    background: #f0f7fb;
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(70, 130, 169, 0.15);
+}
+
+.sample-card::before {
+    content: '✍️';
+    position: absolute;
+    top: 12px;
+    right: 16px;
+    font-size: 1.3rem;
+}
+
+.sample-title {
+    font-weight: 600;
+    color: #30465A;
+    margin-bottom: 10px;
+    font-size: 16px;
+    padding-right: 25px;
+}
+
+.sample-text {
+    color: #496F94;
+    font-size: 14px;
+    line-height: 1.5;
+    margin: 0;
+}
+
+.copy-hint {
+    font-size: 12px;
+    color: #4682A9;
+    margin-top: 10px;
+    opacity: 0;
+    transition: opacity 0.2s;
+    font-weight: 500;
+}
+
+.sample-card:hover .copy-hint {
+    opacity: 1;
+}
+
+/* === БЛОК РЕЗУЛЬТАТА === */
+.result-box {
+    background: linear-gradient(135deg, #4682A9 0%, #3a6d8c 100%);
+    border-radius: 20px;
+    padding: 30px;
+    margin: 40px auto;
+    max-width: 800px;
+    color: white;
+    display: none;
+    animation: slideIn 0.4s ease;
+    box-shadow: 0 10px 40px rgba(70, 130, 169, 0.3);
+}
+
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.result-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 25px;
+    padding-bottom: 20px;
+    border-bottom: 3px solid rgba(255, 255, 255, 0.3);
+}
+
+.result-header .checkmark {
+    font-size: 28px;
+}
+
+.result-header strong {
+    font-size: 22px;
+    font-weight: 600;
+}
+
+.result-sport {
+    font-size: 32px;
+    font-weight: 700;
+    text-align: center;
+    margin: 20px 0;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.result-meta {
+    background: rgba(255, 255, 255, 0.15);
+    border-radius: 12px;
+    padding: 15px 20px;
+    margin: 20px 0;
+}
+
+.result-meta p {
+    margin: 8px 0;
+    font-size: 16px;
+}
+
+.result-meta strong {
+    font-weight: 600;
+}
+
+.result-reason {
+    background: rgba(255, 255, 255, 0.1);
+    border-left: 4px solid white;
+    padding: 15px 20px;
+    margin: 20px 0;
+    font-style: italic;
+    font-size: 16px;
+    line-height: 1.5;
+}
+
+.additional-recs {
+    margin-top: 25px;
+    padding-top: 20px;
+    border-top: 2px solid rgba(255, 255, 255, 0.3);
+}
+
+.additional-recs h4 {
+    margin: 0 0 15px;
+    font-size: 18px;
+    font-weight: 600;
+}
+
+.rec-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    justify-content: center;
+}
+
+.rec-item {
+    background: rgba(255, 255, 255, 0.2);
+    padding: 10px 20px;
+    border-radius: 25px;
+    font-size: 15px;
+    font-weight: 500;
+    transition: background 0.2s;
+}
+
+.rec-item:hover {
+    background: rgba(255, 255, 255, 0.3);
+}
+
+/* === ИНДИКАТОР ЗАГРУЗКИ === */
+.loading {
+    text-align: center;
+    padding: 40px 20px;
+    display: none;
+}
+
+.spinner {
+    width: 60px;
+    height: 60px;
+    border: 5px solid rgba(70, 130, 169, 0.2);
+    border-top-color: #4682A9;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    margin: 0 auto 20px;
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.loading p {
+    color: #30465A;
+    font-size: 18px;
+    margin: 0;
+}
+
+.loading small {
+    color: #6c757d;
+    display: block;
+    margin-top: 8px;
+}
+
+/* === ДИСКЛЕЙМЕР === */
+.disclaimer {
+    background: #fff3cd;
+    border: 1px solid #ffc107;
+    border-radius: 12px;
+    padding: 20px 25px;
+    margin: 30px auto;
+    max-width: 800px;
+    font-size: 14px;
+    color: #856404;
+    line-height: 1.5;
+}
+
+.disclaimer strong {
+    display: block;
+    margin-bottom: 8px;
+    font-size: 15px;
+}
+
+.disclaimer ul {
+    margin: 10px 0 0 20px;
+    padding: 0;
+}
+
+.disclaimer li {
+    margin: 5px 0;
+}
+
+/* === АДАПТИВНОСТЬ === */
+@media (max-width: 768px) {
+    .upload-box,
+    .result-box,
+    .disclaimer {
+        margin: 20px;
+        padding: 20px;
+    }
+    
+    .samples-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .result-sport {
+        font-size: 26px;
+    }
+    
+    .analyze-button {
+        width: 100%;
+        padding: 14px;
+    }
+    
+    .rec-list {
+        flex-direction: column;
+        align-items: center;
+    }
+}
+
+
+  .container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        h1 {
+            color: #749BC2;
+            text-align: center;
+            font-size: 48px;
+            margin-bottom: 10px;
+        }
+        
+        .subtitle {
+            color: #496F94;
+            font-size: 24px;
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        
+        .upload-box {
+            background: white;
+            border-radius: 16px;
+            padding: 30px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+        }
+        
+        .upload-area {
+            border: 3px dashed #4682A9;
+            border-radius: 12px;
+            padding: 60px 20px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            background: #f8fafc;
+        }
+        
+        .upload-area:hover {
+            border-color: #3a6d8c;
+            background: #f0f7fb;
+        }
+        
+        .upload-area.hidden {
+            display: none;
+        }
+        
+        .upload-text {
+            font-size: 18px;
+            color: #30465A;
+            font-weight: 500;
+        }
+        
+        .preview-container {
+            margin-top: 20px;
+            text-align: center;
+            display: none;
+        }
+        
+        .preview-container.show {
+            display: block;
+        }
+        
+        .preview-image {
+            max-width: 100%;
+            max-height: 400px;
+            border-radius: 12px;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+        }
+        
+        .delete-button {
+            background: #ef476f;
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 25px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: block;
+            margin: 0 auto;
+        }
+        
+        .delete-button:hover {
+            background: #d63d5e;
+            transform: translateY(-2px);
+        }
+        
+        input[type="file"] {
+            display: none;
+        }
+
+/* === СТИЛИ ДЛЯ СТРАНИЦЫ АНАЛИЗА === */
+
+.page {
+    padding-top: 120px;
+    padding-bottom: 40px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+/* Заголовок страницы */
+.maintext {
+    color: #749BC2;
+    font-size: 48px;
+    text-align: center;
+    margin-bottom: 15px;
+    font-weight: 700;
+}
+
+.subtitle_two {
+    color: #496F94;
+    font-size: 20px;
+    text-align: center;
+    max-width: 700px;
+    margin: 0 auto 40px;
+    line-height: 1.5;
+}
+
+/* Зона загрузки */
+.upload-box {
+    background: white;
+    border-radius: 16px;
+    padding: 40px;
+    margin: 30px auto;
+    max-width: 800px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+.upload-label {
+    display: block;
+    cursor: pointer;
+    padding: 60px 20px;
+    border: 3px dashed #4682A9;
+    border-radius: 12px;
+    background: #f8fafc;
+    transition: all 0.3s ease;
+    font-weight: 600;
+    color: #30465A;
+    font-size: 18px;
+}
+
+.upload-label:hover {
+    border-color: #3a6d8c;
+    background: #f0f7fb;
+    transform: translateY(-2px);
+}
+
+.image-preview {
+    margin: 25px 0;
+    text-align: center;
+}
+
+/* Кнопка удаления - по центру снизу */
+.image-preview button {
+    background: #ef476f;
+    color: white;
+    border: none;
+    padding: 10px 25px;
+    border-radius: 25px;
+    font-size: 15px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: inline-block;
+    margin: 0 auto;
+}
+
+.image-preview button:hover {
+    background: #d63d5e;
+    transform: translateY(-2px);
+}
+
+/* Кнопка анализа */
+.analyze-button {
+    background: linear-gradient(135deg, #4682A9 0%, #3a6d8c 100%);
+    color: white;
+    border: none;
+    padding: 16px 45px;
+    font-size: 18px;
+    font-weight: 600;
+    border-radius: 50px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(70, 130, 169, 0.3);
+    margin: 25px 0;
+}
+
+.analyze-button:hover:not(:disabled) {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 25px rgba(70, 130, 169, 0.4);
+}
+
+.analyze-button:disabled {
+    background: #cbd5e1;
+    cursor: not-allowed;
+    transform: none;
+    box-shadow: none;
+}
+
+.hint {
+    font-size: 14px;
+    color: #6c757d;
+    margin-top: 20px;
+    font-style: italic;
+    line-height: 1.5;
+}
+
+/* Индикатор загрузки */
+.loading {
+    text-align: center;
+    padding: 40px 20px;
+    display: none;
+}
+
+.spinner {
+    width: 60px;
+    height: 60px;
+    border: 5px solid rgba(70, 130, 169, 0.2);
+    border-top-color: #4682A9;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    margin: 0 auto 20px;
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.loading p {
+    color: #30465A;
+    font-size: 18px;
+    margin: 0 0 8px 0;
+}
+
+.loading small {
+    color: #6c757d;
+    font-size: 14px;
+}
+
+/* Примеры текста */
+.samples-title {
+    color: #496F94;
+    font-size: 32px;
+    font-weight: 700;
+    text-align: center;
+    margin: 50px 0 20px;
+}
+
+.samples-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px;
+    margin: 30px auto;
+    max-width: 1000px;
+    padding: 0 20px;
+}
+
+.sample-card {
+    background: white;
+    border: 2px solid #e2e8f0;
+    border-radius: 16px;
+    padding: 25px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    position: relative;
+    text-align: left;
+}
+
+.sample-card:hover,
+.sample-card.selected {
+    border-color: #4682A9;
+    background: #f0f7fb;
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(70, 130, 169, 0.15);
+}
+
+.sample-card::before {
+    content: '✍️';
+    position: absolute;
+    top: 15px;
+    right: 20px;
+    font-size: 1.5rem;
+}
+
+.sample-title {
+    font-weight: 700;
+    color: #30465A;
+    margin-bottom: 12px;
+    font-size: 17px;
+    padding-right: 30px;
+}
+
+.sample-text {
+    color: #496F94;
+    font-size: 15px;
+    line-height: 1.6;
+    margin: 0;
+    font-style: italic;
+}
+
+.copy-hint {
+    font-size: 13px;
+    color: #4682A9;
+    margin-top: 12px;
+    opacity: 0;
+    transition: opacity 0.3s;
+    font-weight: 600;
+}
+
+.sample-card:hover .copy-hint {
+    opacity: 1;
+}
+
+/* Блок результата */
+.result-box {
+    background: linear-gradient(135deg, #4682A9 0%, #3a6d8c 100%);
+    border-radius: 20px;
+    padding: 35px;
+    margin: 50px auto;
+    max-width: 800px;
+    color: white;
+    display: none;
+    animation: slideIn 0.5s ease;
+    box-shadow: 0 10px 40px rgba(70, 130, 169, 0.3);
+}
+
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.result-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 30px;
+    padding-bottom: 20px;
+    border-bottom: 3px solid rgba(255, 255, 255, 0.3);
+}
+
+.result-header .checkmark {
+    font-size: 32px;
+}
+
+.result-header strong {
+    font-size: 24px;
+    font-weight: 700;
+}
+
+.result-sport {
+    font-size: 36px;
+    font-weight: 700;
+    text-align: center;
+    margin: 25px 0;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.result-meta {
+    background: rgba(255, 255, 255, 0.15);
+    border-radius: 12px;
+    padding: 20px;
+    margin: 25px 0;
+}
+
+.result-meta p {
+    margin: 10px 0;
+    font-size: 16px;
+}
+
+.result-meta strong {
+    font-weight: 600;
+}
+
+.result-reason {
+    background: rgba(255, 255, 255, 0.1);
+    border-left: 4px solid white;
+    padding: 20px;
+    margin: 25px 0;
+    font-style: italic;
+    font-size: 17px;
+    line-height: 1.6;
+}
+
+.additional-recs {
+    margin-top: 30px;
+    padding-top: 25px;
+    border-top: 2px solid rgba(255, 255, 255, 0.3);
+}
+
+.additional-recs h4 {
+    margin: 0 0 15px;
+    font-size: 19px;
+    font-weight: 600;
+}
+
+.rec-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    justify-content: center;
+}
+
+.rec-item {
+    background: rgba(255, 255, 255, 0.2);
+    padding: 10px 20px;
+    border-radius: 25px;
+    font-size: 15px;
+    font-weight: 500;
+    transition: background 0.3s;
+}
+
+.rec-item:hover {
+    background: rgba(255, 255, 255, 0.3);
+}
+
+/* Дисклеймер */
+.disclaimer {
+    background: #fff3cd;
+    border: 1px solid #ffc107;
+    border-radius: 12px;
+    padding: 25px;
+    margin: 40px auto;
+    max-width: 800px;
+    font-size: 14px;
+    color: #856404;
+    line-height: 1.6;
+}
+
+.disclaimer strong {
+    display: block;
+    margin-bottom: 10px;
+    font-size: 16px;
+}
+
+
+/* Адаптивность */
+@media (max-width: 768px) {
+    .page {
+        padding-top: 100px;
+    }
+    
+    .maintext {
+        font-size: 36px;
+    }
+    
+    .upload-box {
+        padding: 25px;
+        margin: 20px;
+    }
+    
+    .samples-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .result-sport {
+        font-size: 28px;
+    }
+    
+    .analyze-button {
+        width: 100%;
+        padding: 14px;
+    }
+}
+
+.employee{
+    text-align: center;
+    padding: 20px 10px;
+    border-radius: 10px;
+    transition: all 0.3s ease;
+    max-width: 320px;
+    margin: 20px auto;
+}
+
+.employee img {
+    width: 200px;
+    height: 200px;
+}

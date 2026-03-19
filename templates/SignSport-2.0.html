@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SignSport — Подбор спорта по почерку</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/normalize.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="icon" href="{{ url_for('static', filename='images/favicon.jpg') }}" sizes="16x16" type="image/jpeg">
+</head>
+
+
+<!-- Баннер сверху-->
+<body>
+    <div class="header">
+        <div class="navigation">
+            <a href="{{ url_for('home') }}">
+                <img src="{{ url_for('static', filename='images/logo.png') }}" alt="SignSport">
+            </a>
+        </div>
+    </div>
+
+<!-- Приветсвенный текст -->
+    <div class="mainpage">
+        <h1 class="maintext">Добро пожаловать на SignSport!</h1>
+        <p class="subtitle">
+            <i>Подберём подходящий для вас вид спорта на основе вашего характера, который будет получен из вашего почерка!</i>
+        </p>
+        <img src="{{ url_for('static', filename='images/fencing.png') }}" alt="fencing">
+    </div>
+
+<!-- Блок с кратким описанием проекта  -->
+    <div class="text">
+        <p>
+            Экспертная система графологического анализа <strong>SignSport 1.0</strong> с помощью фотографии почерка человека определяет характер человека, а затем
+            сопоставляеся характер с возможным походящим видом спорта. Это уникальный подход, основанный на научных связях между почерком, личностью и предрасположенностью к определённым видам спорта.
+        </p>
+    </div>
+
+<!-- Этапы выполнения работы -->
+    <div class="list">
+        <img class="tennis" src="{{ url_for('static', filename='images/tennis.png') }}" alt="tennis">
+        <p class="name">Этапы работы проекта:</p>
+        <ul class="spisok">
+            <li class="textspisok">Отправить в программу фотографию почерка</li>
+            <li class="textspisok">Подождать работу программы</li>
+            <li class="textspisok">Получить долгожданный результат!</li>
+            <img class="athletic" src="{{ url_for('static', filename='images/athlete.png') }}" alt="athlete">
+        </ul>
+    </div>
+
+
+<!-- Оформление кнопки для перехода на нейросеть -->
+    <div class="AI">
+        <img src="{{ url_for('static', filename='images/photo.png') }}" alt="mini capibara">
+        <p class="AI-text">Загрузите отчёт вашего характера по почерку и получите рекомендацию по подходящему виду спорта прямо сейчас!</p>
+    </div>
+
+    <div class="arrow-container">
+        <img src="{{ url_for('static', filename='images/arrow.png') }}" alt="arrow" class="scroll-hint-arrow">
+    </div>
+
+    <a href="{{ url_for('analyze_page') }}" class="butten-link">
+        <p class="butten">Проанализировать сейчас</p>
+    </a>
+
+    <footer>
+        <div>
+            <p><b>SignSport 2.0 — подбор вида спорта специально для вас</b></p>
+        </div>
+    </footer>
+
+</body>
+</html>

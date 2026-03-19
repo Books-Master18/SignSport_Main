@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SignSport — Подбор спорта по почерку</title>
+    
+    <!-- Шрифты -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Стили -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/normalize.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="icon" href="{{ url_for('static', filename='images/favicon.jpg') }}" type="image/jpeg">
+</head>
+
+<body>
+    <!-- Баннер -->
+    <div class="header">
+        <div class="navigation">
+            <a href="{{ url_for('home') }}">
+                <img src="{{ url_for('static', filename='images/logo.png') }}" alt="SignSport">
+            </a>
+        </div>
+    </div>
+
+    <!-- Основной контент -->
+    <main class="page">
+        
+        <!-- Заголовок страницы -->
+        <h1 class="maintext"><i>Анализ почерка</i></h1>
+        <p class="subtitle_two">
+            Загрузите фото с образцом вашего почерка и получите результат!
+        </p>
+
+        <!-- Зона загрузки фото -->
+        <div class="upload-box">
+            <label for="handwritingImage" class="upload-label" id="uploadLabel">
+                Нажмите или перетащите фото сюда
+                <input type="file" id="handwritingImage" accept="image/*" style="display: none;">
+            </label>
+            
+            <!-- Предпросмотр изображения -->
+            <div id="imagePreview" class="image-preview">
+                <img id="previewImg" src="" alt="Предпросмотр">
+                <br>
+                <button type="button" onclick="clearImage()">Удалить фото</button>
+            </div>
+            
+            <!-- Кнопка анализа -->
+            <button type="button" onclick="runAnalysis()" class="analyze-button" id="analyzeBtn" disabled>
+                🔍 Получить рекомендацию
+            </button>
+            
+            <p class="hint">
+                💡 Совет: пишите шариковой ручкой на белом листе при хорошем освещении
+            </p>
+        </div>
+
+        <!-- Индикатор загрузки -->
+        <div class="loading" id="loading">
+            <div class="spinner"></div>
+            <p>Анализируем почерк...</p>
+            <small>Это займёт 3–5 секунд</small>
+        </div>
+
+        <!-- Блок результата -->
+        <div id="result" class="result-box">
+            <div class="result-header">
+                <span class="checkmark">✅</span>
+                <strong>Рекомендация готова!</strong>
+            </div>
+            
+            <div class="result-sport" id="recommendedSport">Фехтование 🤺</div>
+            
+            <div class="result-meta">
+                <p><strong>🎯 Уверенность:</strong> <span id="confidence">87</span>%</p>
+            </div>
+            
+            <div class="result-reason" id="reasonText">
+                Ваш почерк показывает концентрацию, точность движений и высокий самоконтроль — качества, идеальные для фехтования.
+            </div>
+            
+            <div class="additional-recs" id="additionalRecs">
+                <h4>Также может подойти:</h4>
+                <div class="rec-list">
+                    <span class="rec-item">Теннис 🎾 (72%)</span>
+                    <span class="rec-item">Скалолазание 🧗 (68%)</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Примеры текста для написания -->
+        <h2 class="samples-title">✍️ Примеры текста для написания от руки</h2>
+        <p style="text-align: center; color: #6c757d; max-width: 700px; margin: 0 auto 25px;">
+            Перепишите один из вариантов на бумаге, сфотографируйте и загрузите выше:
+        </p>
+        
+        <div class="samples-grid">
+            <div class="sample-card" onclick="selectSample(this, 'Я люблю активный отдых и командные игры. Всегда готов к новым вызовам и не боюсь риска.')">
+                <div class="sample-title">Пример №1</div>
+                <p class="sample-text">Вспыхнул первый луч солнца. Ночная тьма укрылась в густой листве деревьев .Проснулись малиновки. Перья на их грудках окрасились в цвет зари. Заблестели на листьях капли росы. Над цветами стали кружить золотистые пчелки. Они жадно пьют сладкий сок .Мелькают стрижи. Хорошо иметь быстрые и легкие крылья.</p>
+            </div>
+            
+            <div class="sample-card" onclick="selectSample(this, 'Предпочитаю спокойную обстановку. Ценю дисциплину, терпение и возможность работать в своём ритме.')">
+                <div class="sample-title">Пример №2</div>
+                <p class="sample-text">Дети нашли во дворе маленького котенка. Он залез на дерево и не мог спуститься на землю. Дети принесли лестницу и сняли котенка. Потом  они взяли его в дом, напоили молочком, накормили котлетой. Теперь котенка зовут Кощей. Он будт жить в доме.</p>
+            </div>
+            
+            <div class="sample-card" onclick="selectSample(this, 'Люблю точность и стратегию. Принимаю решения обдуманно, ценю контроль и хладнокровие.')">
+                <div class="sample-title">Пример №3</div>
+                <p class="sample-text">Дети пришли в рощк. Там весело и шумно. Пчела брала мед с цветка. Муравей тащил травинку. Голубь строил гнездо для голубят. Зайчик бежал к ручью. Ручей поил чистой водой людей и животных.</p>
+            </div>
+        </div>
+
+        <!-- Дисклеймер -->
+        <div class="disclaimer">
+            <strong>⚠️ Важно:</strong>
+            Результаты носят рекомендательный характер. Анализ основан на книге И. Гольдберг и алгоритмах компьютерного зрения.
+        </div>
+
+    <div class="employee">
+        <img src="{{ url_for('static', filename='images/employee.png') }}" alt="cat employee">
+    </div>
+        </div>
+
+    </main>
+
+    <!-- Футер -->
+    <footer>
+        <p><b>SignSport — подбор вида спорта на основе графологического анализа</b></p>
+    </footer>
+
+    <!-- Скрипты -->
+    <script>
+        // === Глобальные переменные ===
+        let selectedImage = null;
+        
+        // === Инициализация ===
+        document.addEventListener('DOMContentLoaded', function() {
+            setupDragAndDrop();
+            setupFileInput();
+        });
+        
+        // === Drag & Drop для зоны загрузки ===
+        function setupDragAndDrop() {
+            const dropZone = document.querySelector('.upload-label');
+            
+            ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
+                dropZone.addEventListener(eventName, preventDefaults, false);
+            });
+            
+            function preventDefaults(e) {
+                e.preventDefault();
+                e.stopPropagation();
+            }
+            
+            ['dragenter', 'dragover'].forEach(eventName => {
+                dropZone.addEventListener(eventName, () => {
+                    dropZone.style.borderColor = '#3a6d8c';
+                    dropZone.style.background = '#f0f7fb';
+                }, false);
+            });
+            
+            ['dragleave', 'drop'].forEach(eventName => {
+                dropZone.addEventListener(eventName, () => {
+                    dropZone.style.borderColor = '#4682A9';
+                    dropZone.style.background = '#f8fafc';
+                }, false);
+            });
+            
+            dropZone.addEventListener('drop', handleDrop, false);
+        }
+        
+        function handleDrop(e) {
+            const dt = e.dataTransfer;
+            const files = dt.files;
+            if (files.length) handleFiles(files[0]);
+        }
+        
+        // === Выбор файла через input ===
+        function setupFileInput() {
+            document.getElementById('handwritingImage').addEventListener('change', function(e) {
+                if (this.files[0]) handleFiles(this.files[0]);
+            });
+        }
+        
+        function handleFiles(file) {
+    // Валидация типа
+    const allowedTypes = ['image/jpeg', 'image/png', 'image/webp'];
+    if (!allowedTypes.includes(file.type)) {
+        alert('❌ Поддерживаются только JPG, PNG и WebP');
+        return;
+    }
+    // Валидация размера (10 МБ)
+    if (file.size > 10 * 1024 * 1024) {
+        alert('❌ Файл слишком большой (макс. 10 МБ)');
+        return;
+    }
+    
+    // Предпросмотр
+    selectedImage = file;
+    const reader = new FileReader();
+    reader.onload = function(e) {
+        const previewImg = document.getElementById('previewImg');
+        const imagePreview = document.getElementById('imagePreview');
+        const uploadLabel = document.getElementById('uploadLabel');
+        
+        previewImg.src = e.target.result;
+        
+        // Показываем превью
+        imagePreview.classList.add('show');
+        
+        // Скрываем зону загрузки
+        if (uploadLabel) {
+            uploadLabel.classList.add('hidden');
+        }
+        
+        document.getElementById('analyzeBtn').disabled = false;
+    };
+    reader.readAsDataURL(file);
+}
+
+function clearImage() {
+    selectedImage = null;
+    const imagePreview = document.getElementById('imagePreview');
+    const uploadLabel = document.getElementById('uploadLabel');
+    const previewImg = document.getElementById('previewImg');
+    
+    // Очищаем
+    previewImg.src = '';
+    document.getElementById('handwritingImage').value = '';
+    
+    // Скрываем превью
+    imagePreview.classList.remove('show');
+    
+    // Показываем зону загрузки
+    if (uploadLabel) {
+        uploadLabel.classList.remove('hidden');
+    }
+    
+    document.getElementById('analyzeBtn').disabled = true;
+    document.getElementById('result').style.display = 'none';
+}
+        
+        // === Выбор примера текста ===
+        function selectSample(card, text) {
+            // Копирование в буфер
+            navigator.clipboard.writeText(text).then(() => {
+                const hint = card.querySelector('.copy-hint');
+                const original = hint.textContent;
+                hint.textContent = '✓ Скопировано!';
+                setTimeout(() => hint.textContent = original, 2000);
+            });
+            
+            // Подсветка выбранной карточки
+            document.querySelectorAll('.sample-card').forEach(c => c.classList.remove('selected'));
+            card.classList.add('selected');
+            
+            // Подсказка
+            alert('✅ Текст скопирован!\n\nПерепишите его от руки на белом листе, сфотографируйте и загрузите выше.');
+        }
+        
+        // === Запуск анализа ===
+        async function runAnalysis() {
+            if (!selectedImage) {
+                alert('❌ Пожалуйста, загрузите фото почерка');
+                return;
+            }
+            
+            // Показываем индикатор загрузки
+            document.getElementById('loading').style.display = 'block';
+            document.getElementById('result').style.display = 'none';
+            document.getElementById('analyzeBtn').disabled = true;
+            
+            try {
+                const formData = new FormData();
+                formData.append('image', selectedImage);
+                
+                const response = await fetch('/api/analyze', {
+                    method: 'POST',
+                    body: formData
+                });
+                
+                const data = await response.json();
+                
+                if (response.ok) {
+                    showResult(data);
+                } else {
+                    showError(data.error || 'Ошибка анализа');
+                }
+                
+            } catch (error) {
+                console.error('Analysis error:', error);
+                showError('Не удалось подключиться к серверу. Проверьте соединение.');
+            } finally {
+                document.getElementById('loading').style.display = 'none';
+                document.getElementById('analyzeBtn').disabled = false;
+            }
+        }
+        
+        // === Отображение результата ===
+       // === Отображение результата ===
+            function showResult(data) {
+                // Основной результат
+                document.getElementById('recommendedSport').textContent = data.sport;
+                document.getElementById('confidence').textContent = data.confidence;
+                
+                // Убираем reason
+                const reasonElement = document.getElementById('reasonText');
+                if (reasonElement) {
+                    reasonElement.style.display = 'none';
+                }
+                
+                // Альтернативные виды спорта — УВЕЛИЧЕННЫЕ
+                const alternativesContainer = document.getElementById('additionalRecs');
+                if (data.alternative_sports && data.alternative_sports.length > 0) {
+                    alternativesContainer.style.display = 'block';
+                    alternativesContainer.querySelector('h4').textContent = '📋 Альтернативные виды спорта:';
+                    
+                    const recList = alternativesContainer.querySelector('.rec-list');
+                    recList.innerHTML = data.alternative_sports.map(alt => {
+                        return `
+                            <div class="rec-item" style="display: block; margin-bottom: 15px; padding: 20px; background: rgba(255,255,255,0.15); border-radius: 8px; font-size: 18px;">
+                                <strong style="font-size: 20px;">${alt.rank}. ${alt.sport}</strong>
+                                <span style="margin-left: 15px; color: #fffbde; font-weight: bold;">(${alt.confidence}%)</span>
+                            </div>
+                        `;
+                    }).join('');
+                } else {
+                    alternativesContainer.style.display = 'none';
+                }
+                
+                // Дисклеймер
+                if (data.disclaimer) {
+                    document.querySelector('.disclaimer strong').textContent = '⚠️ Важно:';
+                    document.querySelector('.disclaimer').innerHTML += `<br><br>${data.disclaimer}`;
+                }
+                
+                // Показываем результат
+                document.getElementById('result').style.display = 'block';
+                document.getElementById('result').scrollIntoView({ behavior: 'smooth', block: 'center' });
+            }
+                    
+        // === Ошибка ===
+        function showError(message) {
+            alert('❌ ' + message);
+        }
+    </script>
+</body>
+</html>
