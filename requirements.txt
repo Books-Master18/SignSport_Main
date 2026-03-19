@@ -1,3 +1,5 @@
+setuptools==68.2.0 
+wheel==0.41.2
 Flask==2.3.3
 Flask-Limiter==3.5.0
 numpy==1.24.3
