@@ -1,6 +1,6 @@
-# requirements.txt
 Flask==2.3.3
-requests>=2.32.2
-pymorphy3==2.0.2
-python-dotenv==1.0.0
-flask-limiter==3.5.0
+Flask-Limiter==3.5.0
+numpy==1.24.3
+opencv-python-headless==4.8.0.74
+Pillow==10.0.0
+gunicorn==21.2.0
