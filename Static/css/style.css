@@ -703,21 +703,6 @@ footer {
 
 /* ------------------------------------------------- */
 
-/* текст перед фильтром */
-.textageandgender {
-  text-align: center;
-  margin: 10px 0 15px 0;
-}
-
-.textageandgender p {
-  font-size: 24px;
-  font-weight: bold;
-  color: #4682A9; /* или любой цвет из твоей палитры */
-  margin: 0; /* убирает стандартный отступ у <p> */
-}
-
-/* ------------------------------------------------- */
-
 /* Центрирование фильтров */
 .filters-center {
   display: flex;
