@@ -1,177 +1,154 @@
-// SignSport — Клиентский код с загрузкой изображения и анализом через нейросеть
+// === Глобальные переменные ===
+let selectedImage = null;
 
+// === Инициализация ===
 document.addEventListener('DOMContentLoaded', function () {
-    // Работаем только на странице анализа
-    if (!window.location.pathname.startsWith('/analyze')) return;
-
-    const modal = document.getElementById('warningModal');
-    const fileInput = document.getElementById('handwritingImage'); // 🔥 Было: reportInput
-    const analyzeBtn = document.querySelector('.analyze-button');
-    const declineBtn = document.getElementById('declineBtn');
-    const acceptBtn = document.getElementById('acceptBtn');
-    const imagePreview = document.getElementById('imagePreview');
-    const previewImg = document.getElementById('previewImg');
-
-    if (!modal) return;
-
-    // Блокируем интерфейс до подтверждения
-    if (fileInput) fileInput.disabled = true;
-    if (analyzeBtn) analyzeBtn.disabled = true;
-    modal.style.display = 'flex';
-
-    // Подтверждение
-    acceptBtn?.addEventListener('click', () => {
-        modal.style.display = 'none';
-        if (fileInput) fileInput.disabled = false;
-        if (analyzeBtn) analyzeBtn.disabled = false;
-    });
-
-    // Отказ
-    declineBtn?.addEventListener('click', () => {
-        window.location.href = '/goodbye';
-    });
-
-    // 🔥 Превью изображения при выборе файла
-    if (fileInput) {
-        fileInput.addEventListener('change', function(e) {
-            const file = e.target.files[0];
-            if (file && file.type.startsWith('image/')) {
-                const reader = new FileReader();
-                reader.onload = function(event) {
-                    previewImg.src = event.target.result;
-                    imagePreview.style.display = 'block';
-                    if (analyzeBtn) analyzeBtn.disabled = false;
-                };
-                reader.readAsDataURL(file);
-            }
-        });
-    }
+    setupDragAndDrop();
+    setupFileInput();
 });
 
-// 🔥 Функция очистки выбранного изображения
-function clearImage() {
-    const fileInput = document.getElementById('handwritingImage');
-    const imagePreview = document.getElementById('imagePreview');
-    const previewImg = document.getElementById('previewImg');
-    const analyzeBtn = document.querySelector('.analyze-button');
-    
-    if (fileInput) fileInput.value = '';
-    imagePreview.style.display = 'none';
-    previewImg.src = '';
-    if (analyzeBtn) analyzeBtn.disabled = true;
+// === Drag & Drop ===
+function setupDragAndDrop() {
+    const dropZone = document.querySelector('.upload-label');
+    ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
+        dropZone.addEventListener(eventName, preventDefaults, false);
+    });
+
+    function preventDefaults(e) {
+        e.preventDefault();
+        e.stopPropagation();
+    }
+
+    ['dragenter', 'dragover'].forEach(eventName => {
+        dropZone.addEventListener(eventName, () => {
+            dropZone.style.borderColor = '#3a6d8c';
+            dropZone.style.background = '#f0f7fb';
+        }, false);
+    });
+
+    ['dragleave', 'drop'].forEach(eventName => {
+        dropZone.addEventListener(eventName, () => {
+            dropZone.style.borderColor = '#4682A9';
+            dropZone.style.background = '#f8fafc';
+        }, false);
+    });
+
+    dropZone.addEventListener('drop', handleDrop, false);
 }
 
-// 🔥 Основная функция анализа — ТЕПЕРЬ РАБОТАЕТ С ИЗОБРАЖЕНИЕМ
+function handleDrop(e) {
+    const dt = e.dataTransfer;
+    const files = dt.files;
+    if (files.length) handleFiles(files[0]);
+}
+
+// === Выбор файла ===
+function setupFileInput() {
+    document.getElementById('handwritingImage').addEventListener('change', function (e) {
+        if (this.files[0]) handleFiles(this.files[0]);
+    });
+}
+
+function handleFiles(file) {
+    const allowedTypes = ['image/jpeg', 'image/png', 'image/webp'];
+    if (!allowedTypes.includes(file.type)) {
+        alert('❌ Поддерживаются только JPG, PNG и WebP');
+        return;
+    }
+    if (file.size > 10 * 1024 * 1024) {
+        alert('❌ Файл слишком большой (макс. 10 МБ)');
+        return;
+    }
+
+    selectedImage = file;
+    const reader = new FileReader();
+    reader.onload = function (e) {
+        document.getElementById('previewImg').src = e.target.result;
+        document.getElementById('imagePreview').classList.add('show');
+        document.getElementById('uploadLabel').classList.add('hidden');
+        document.getElementById('analyzeBtn').disabled = false;
+    };
+    reader.readAsDataURL(file);
+}
+
+function clearImage() {
+    selectedImage = null;
+    document.getElementById('previewImg').src = '';
+    document.getElementById('handwritingImage').value = '';
+    document.getElementById('imagePreview').classList.remove('show');
+    document.getElementById('uploadLabel').classList.remove('hidden');
+    document.getElementById('analyzeBtn').disabled = true;
+    document.getElementById('result').style.display = 'none';
+}
+
+// === Выбор примера текста ===
+function selectSample(card, text) {
+    navigator.clipboard.writeText(text).then(() => {
+        alert('✅ Текст скопирован!\n\nПерепишите его от руки на белом листе, сфотографируйте и загрузите выше.');
+    });
+    document.querySelectorAll('.sample-card').forEach(c => c.classList.remove('selected'));
+    card.classList.add('selected');
+}
+
+// === Запуск анализа ===
 async function runAnalysis() {
-    const fileInput = document.getElementById("handwritingImage"); // 🔥 Было: reportInput
-    const file = fileInput?.files?.[0];
-    
-    const btn = document.querySelector(".analyze-button");
-    const resultDiv = document.getElementById("result");
-
-    // 🔥 Проверка файла вместо текста
-    if (!file) {
-        alert("Пожалуйста, загрузите фото с почерком");
+    if (!selectedImage) {
+        alert('❌ Пожалуйста, загрузите фото почерка');
         return;
     }
 
-    // Проверка размера файла (опционально, но полезно)
-    if (file.size > 10 * 1024 * 1024) { // 10 MB limit
-        alert("Файл слишком большой. Пожалуйста, выберите изображение до 10 МБ");
-        return;
-    }
-
-    const originalBtnText = btn?.textContent || "Анализировать";
-    if (btn) {
-        btn.disabled = true;
-        btn.textContent = "🔄 Анализирую почерк...";
-    }
-
-    resultDiv.style.display = "none";
-    resultDiv.innerHTML = "";
-    resultDiv.style.opacity = "0";
+    document.getElementById('loading').style.display = 'block';
+    document.getElementById('result').style.display = 'none';
+    document.getElementById('analyzeBtn').disabled = true;
 
     try {
-        // 🔥 Формируем FormData для отправки файла
         const formData = new FormData();
-        formData.append("image", file); // Имя "image" должно совпадать с backend!
+        formData.append('image', selectedImage);
 
-        const response = await fetch("/api/analyze", { // 🔥 Тот же endpoint, но теперь с файлом
-            method: "POST",
-            // 🔥 Content-Type НЕ указываем — браузер сам поставит multipart/form-data с boundary
-            body: formData
-        });
-
+        const response = await fetch('/api/analyze', { method: 'POST', body: formData });
         const data = await response.json();
 
-        if (!response.ok) {
-            throw new Error(data.error || "Ошибка сервера");
+        if (response.ok) {
+            showResult(data);
+        } else {
+            showError(data.error || 'Ошибка анализа');
         }
-
-        let resultHTML = `
-            <div class="result-header">
-                <span class="checkmark">✅</span>
-                <strong>Рекомендация готова!</strong>
-            </div>
-            <div class="result-container">
-                <h3>🎯 Основная рекомендация:</h3>
-                <div class="main-recommendation">
-                    <div class="sport-name">${data.sport}</div>
-                    <div class="confidence">Уверенность: ${data.confidence}%</div>
-                    <div class="reason">${data.reason || ""}</div>
-                </div>
-        `;
-
-        // Альтернативные варианты (оставляем как было)
-        if (data.additional_recommendations && data.additional_recommendations.length > 0) {
-            resultHTML += `
-                <div class="alternative-recommendations">
-                    <h4>🔄 Альтернативные варианты:</h4>
-                    <div class="alternatives-list">
-            `;
-            data.additional_recommendations.forEach((rec, index) => {
-                resultHTML += `
-                    <div class="alternative-item">
-                        <span class="alt-sport">${index + 1}. ${rec.sport}</span>
-                        <span class="alt-confidence">${rec.confidence}%</span>
-                    </div>
-                `;
-            });
-            resultHTML += `
-                    </div>
-                </div>
-            `;
-        }
-
-        resultHTML += `</div>`;
-        resultDiv.innerHTML = resultHTML;
-        resultDiv.style.display = "block";
-
-        // Плавное появление
-        setTimeout(() => {
-            resultDiv.style.transition = "opacity 0.5s ease";
-            resultDiv.style.opacity = "1";
-        }, 50);
-
     } catch (error) {
-        console.error("Ошибка запроса:", error);
-        resultDiv.innerHTML = `
-            <div class="result-header">
-                <span style="font-size: 24px; margin-right: 10px;"></span>
-                <strong>Ошибка анализа</strong>
-            </div>
-            <div class="error-message">
-                <p style="color: #c0392b; padding: 15px; background: #f8d7da; border-radius: 5px; margin: 15px 0;">
-                    ❌ ${error.message || "Не удалось подключиться к серверу"}
-                </p>
-            </div>
-        `;
-        resultDiv.style.display = "block";
-        resultDiv.style.opacity = "1";
+        console.error('Analysis error:', error);
+        showError('Не удалось подключиться к серверу. Проверьте соединение.');
     } finally {
-        if (btn) {
-            btn.disabled = false;
-            btn.textContent = originalBtnText;
-        }
+        document.getElementById('loading').style.display = 'none';
+        document.getElementById('analyzeBtn').disabled = false;
     }
+}
+
+// === Отображение результата ===
+function showResult(data) {
+    document.getElementById('recommendedSport').textContent = data.sport;
+    document.getElementById('confidence').textContent = data.confidence;
+
+    const reasonElement = document.getElementById('reasonText');
+    if (reasonElement) reasonElement.style.display = 'none';
+
+    const alternativesContainer = document.getElementById('additionalRecs');
+    if (data.alternative_sports && data.alternative_sports.length > 0) {
+        alternativesContainer.style.display = 'block';
+        alternativesContainer.querySelector('h4').textContent = '📋 Альтернативные виды спорта:';
+        const recList = alternativesContainer.querySelector('.rec-list');
+        recList.innerHTML = data.alternative_sports.map(alt => `
+            <div class="rec-item" style="display: block; margin-bottom: 15px; padding: 20px; background: rgba(255,255,255,0.15); border-radius: 8px; font-size: 18px;">
+                <strong style="font-size: 20px;">${alt.rank}. ${alt.sport}</strong>
+                <span style="margin-left: 15px; color: #fffbde; font-weight: bold;">(${alt.confidence}%)</span>
+            </div>
+        `).join('');
+    } else {
+        alternativesContainer.style.display = 'none';
+    }
+
+    document.getElementById('result').style.display = 'block';
+}
+
+// === Ошибка ===
+function showError(message) {
+    alert('❌ ' + message);
 }
