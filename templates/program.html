@@ -108,8 +108,8 @@
 
         <!-- Дисклеймер -->
         <div class="disclaimer">
-            <strong>⚠️ Важно:</strong>
-            Результаты носят рекомендательный характер. Анализ основан на книге И. Гольдберг и алгоритмах компьютерного зрения.
+            <strong> Важно:</strong>
+            Результаты носят рекомендательный характер и программа не гарантирует 100% успеха!
         </div>
 
     <div class="employee">
@@ -324,15 +324,7 @@ function clearImage() {
                     alternativesContainer.style.display = 'none';
                 }
                 
-                // Дисклеймер
-                if (data.disclaimer) {
-                    document.querySelector('.disclaimer strong').textContent = '⚠️ Важно:';
-                    document.querySelector('.disclaimer').innerHTML += `<br><br>${data.disclaimer}`;
-                }
                 
-                // Показываем результат
-                document.getElementById('result').style.display = 'block';
-                document.getElementById('result').scrollIntoView({ behavior: 'smooth', block: 'center' });
             }
                     
         // === Ошибка ===

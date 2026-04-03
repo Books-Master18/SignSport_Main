@@ -157,7 +157,7 @@ async function runAnalysis() {
         console.error("Ошибка запроса:", error);
         resultDiv.innerHTML = `
             <div class="result-header">
-                <span style="font-size: 24px; margin-right: 10px;">⚠️</span>
+                <span style="font-size: 24px; margin-right: 10px;"></span>
                 <strong>Ошибка анализа</strong>
             </div>
             <div class="error-message">
