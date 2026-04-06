@@ -28,7 +28,7 @@
 
         
         <!-- Заголовок страницы -->
-        <h1 class="maintext"><i>Анализ почерка</i></h1>
+        <h1 class="analyzetext"><i>Анализ почерка</i></h1>
         <p class="subtitle_two">
             Загрузите фото с образцом вашего почерка и получите результат!
         </p>
@@ -41,7 +41,7 @@
             </label>
             
             <!-- Предпросмотр изображения -->
-            <div id="imagePreview" class="image-preview">
+            <div id="imagePreview" class="image-preview" style="display: none;">
                 <img id="previewImg" src="" alt="Предпросмотр">
                 <br>
                 <button type="button" onclick="clearImage()">Удалить фото</button>
@@ -53,7 +53,7 @@
             </button>
             
             <p class="hint">
-                Совет: пишите шариковой ручкой на белом листе  А4 при хорошем освещении
+                Совет: пишите шариковой ручкой на белом листе А4 при хорошем освещении
             </p>
         </div>
 
@@ -61,38 +61,29 @@
         <div class="loading" id="loading">
             <div class="spinner"></div>
             <p>Анализируем почерк...</p>
-            <small>Это займёт 3–5 секунд</small>
+            <small>Это займёт некоторое время</small>
         </div>
 
-        <!-- Блок результата -->
-        <div id="result" class="result-box">
+       <!-- Блок результата -->
+        <div id="result" class="result-box" style="display: none;">
             <div class="result-header">
                 <span class="checkmark">✅</span>
-                <strong>Рекомендация готова!</strong>
+                <strong>Топ-3 подходящих вида спорта:</strong>
             </div>
             
-            <div class="result-sport" id="recommendedSport">Фехтование 🤺</div>
-            
-            <div class="result-meta">
-                <p><strong>🎯 Уверенность:</strong> <span id="confidence">87</span>%</p>
-            </div>
-            
-            <div class="additional-recs" id="additionalRecs">
-                <h4>Также может подойти:</h4>
-                <div class="rec-list">
-                    <span class="rec-item">Теннис 🎾 (72%)</span>
-                    <span class="rec-item">Скалолазание 🧗 (68%)</span>
-                </div>
-            </div>
+            <!-- Сюда JS добавит 3 карточки -->
+            <div class="rec-list" id="recList"></div>
         </div>
 
-        <!-- Примеры текста для написания -->
-        <h2 class="samples-title">Примеры текста для написания от руки</h2>
-        <p>Перепишите один из вариантов на бумаге, сфотографируйте и загрузите выше:</p>
+                <!-- Примеры текста для написания -->
+                <h2 class="samples-title">Пример текста для написания от руки</h2>
+                <p class="samples-instruction">
+                    Перепишите текст на бумагу, сфотографируйте и загрузите выше:
+                </p>
         
         <div class="samples-grid">
             <div class="sample-card">
-                <div class="sample-title">Пример №1</div>
+                <div class="sample-title">Пример</div>
                 <p class="sample-text">Вспыхнул первый луч солнца. Ночная тьма укрылась в густой листве деревьев .Проснулись малиновки. Перья на их грудках окрасились в цвет зари. Заблестели на листьях капли росы. Над цветами стали кружить золотистые пчелки. Они жадно пьют сладкий сок .Мелькают стрижи. Хорошо иметь быстрые и легкие крылья.</p>
             </div>
             
@@ -101,7 +92,7 @@
         <!-- Дисклеймер -->
         <div class="disclaimer">
             <strong> Важно:</strong>
-            Результаты носят рекомендательный характер и программа не гарантирует 100% успеха!
+            Результаты носят рекомендательный характер и программа не гарантирует 100% успеха на данном этапе своей разработки!
         </div>
 
 
@@ -109,8 +100,7 @@
     <footer>
         <p><b>SignSport — подбор вида спорта на основе графологического анализа</b></p>
     </footer>
-
-    <script src="{{ url_for('static', filename='js/program.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/analyze.js') }}"></script>
 
 </body>
 </html>
