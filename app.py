@@ -15,58 +15,91 @@ BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 app = Flask(__name__, static_folder=os.path.join(BASE_DIR, 'static'), template_folder=os.path.join(BASE_DIR, 'templates'))
 limiter = Limiter(app=app, key_func=get_remote_address, default_limits=["30 per hour", "10 per minute"])
 
+# app.py
+
 def calculate_sport_recommendations(graphology_result):
     if "error" in graphology_result:
         return graphology_result
+    
+    from config import TRAITS_SYNONYMS, SPORT_TRAITS_DB
     
     trait_scores = graphology_result.get("scores", {})
     detected_traits = set(graphology_result.get("traits", []))
     metrics = graphology_result.get("metrics", {})
     
+    # Вспомогательная функция: есть ли такая черта или её синоним?
+    def has_trait(target_trait):
+        if target_trait in detected_traits:
+            return True
+        synonyms = TRAITS_SYNONYMS.get(target_trait, [])
+        for syn in synonyms:
+            if syn in detected_traits:
+                return True
+        return False
+
     sport_results = []
     
     for sport_name, data in SPORT_TRAITS_DB.items():
         required_traits = data["required_traits"]
         total_required = len(required_traits)
         
+        matched_count = 0
         raw_score = 0
-        matched_traits_list = []
         
-        # Считаем баллы
+        # Считаем количество совпадений
         for trait in required_traits:
-            if trait in trait_scores:
-                raw_score += trait_scores[trait] 
-                matched_traits_list.append(trait)
-            elif trait in detected_traits:
-                raw_score += 50 
-                matched_traits_list.append(trait)
-        
-        # Бонусы за метрики
-        if metrics.get("slant") == "vertical":
-            if "самодисциплинированный" in required_traits or "организованный" in required_traits:
-                raw_score += 20
-        
-        if metrics.get("pressure") == "heavy":
-            if "решительный" in required_traits or "амбициозный" in required_traits:
-                raw_score += 15
+            if has_trait(trait):
+                matched_count += 1
+                # Добавляем базовый балл за совпадение черты
+                raw_score += trait_scores.get(trait, 50) 
 
-        # Нормализация в проценты
-        max_possible_score = (total_required * 100) + 50 
-        confidence = int((raw_score / max_possible_score) * 100) if max_possible_score > 0 else 0
-        confidence = max(40, min(98, confidence))
+        # === РАСЧЕТ ПРОЦЕНТА (Упрощенный) ===
+        
+        # 1. Базовый процент: доля совпавших черт (0-100%)
+        base_percent = (matched_count / total_required) * 100 if total_required > 0 else 0
+        
+        # 2. Бонусы за метрики (добавляют до 10-15% точности)
+        bonus = 0
+        
+        slant = metrics.get("slant")
+        pressure = metrics.get("pressure")
+        
+        # Если спорт требует дисциплины/рациональности, а почерк вертикальный
+        if slant == "vertical":
+            if any(t in required_traits for t in ["самодисциплинированный", "организованный", "рациональный", "сдержанный", "спокойный"]):
+                bonus += 10
+                
+        # Если спорт требует силы воли, а нажим сильный
+        if pressure == "heavy":
+            if any(t in required_traits for t in ["решительный", "амбициозный", "настойчивый", "волевой", "смелый"]):
+                bonus += 10
+        elif pressure == "light":
+             # Легкий нажим для тактильных/тонких видов
+             if any(t in required_traits for t in ["внимательный", "эмпатичный", "тактичный", "гибкий", "рефлексивный"]):
+                 bonus += 5
+
+        # Итоговый процент
+        final_confidence = int(base_percent + bonus)
+        
+        # Ограничиваем диапазон от 30% до 99%
+        final_confidence = max(30, min(99, final_confidence))
         
         sport_results.append({
             "sport": sport_name,
-            "confidence": confidence,
-            "matched_count": len(matched_traits_list),
+            "confidence": final_confidence,
+            "matched_count": matched_count,
+            "total_required": total_required,
             "group_type": data["group_type"]
         })
 
-    # Сортировка и выбор ТОП-3
-    sorted_sports = sorted(sport_results, key=lambda x: x["confidence"], reverse=True)
+    # Сортировка: сначала по уверенности, потом по количеству совпадений
+    sorted_sports = sorted(sport_results, key=lambda x: (x["confidence"], x["matched_count"]), reverse=True)
+    
     top_3 = sorted_sports[:3]
     
     return {"top_3": top_3}
+
+
 
 @app.route('/')
 def home():
